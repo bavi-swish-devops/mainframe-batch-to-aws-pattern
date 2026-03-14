@@ -1,0 +1,15 @@
+//ACCTPOST JOB (ACCT),'BATCH TO AWS',CLASS=A,MSGCLASS=X,NOTIFY=&SYSUID
+//*
+//* ------------------------------------------------------------------
+//* ACCTPOST - SAMPLE BATCH JOB
+//* PURPOSE:
+//*   READ FIXED-WIDTH TRANSACTION FILE
+//*   SUMMARIZE CREDITS, DEBITS, AND NET AMOUNT
+//* ------------------------------------------------------------------
+//*
+//STEP001  EXEC PGM=ACCTPOST
+//STEPLIB  DD   DSN=YOUR.LOADLIB,DISP=SHR
+//SYSOUT   DD   SYSOUT=*
+//SYSPRINT DD   SYSOUT=*
+//INPUTDD  DD   DSN=YOUR.INPUT.TRANSACTION.FILE,DISP=SHR
+//

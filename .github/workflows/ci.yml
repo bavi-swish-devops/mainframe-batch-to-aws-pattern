@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup update stable && rustup default stable
+
+      - name: Rust format check
+        working-directory: modern/app
+        run: cargo fmt --check
+
+      - name: Rust build
+        working-directory: modern/app
+        run: cargo build --verbose
+
+      - name: Rust test
+        working-directory: modern/app
+        run: cargo test --verbose
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt
+        working-directory: modern/infra/terraform
+        run: terraform fmt -check -recursive
+
+      - name: Terraform validate
+        working-directory: modern/infra/terraform
+        run: |
+          terraform init -backend=false
+          terraform validate

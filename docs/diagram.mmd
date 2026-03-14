@@ -1,0 +1,41 @@
+flowchart LR
+    subgraph Legacy["Legacy Mainframe Pattern"]
+        A["Fixed-width input file<br/>(VSAM-like dataset)"]
+        B["COBOL Batch Program<br/>ACCTPOST.cbl"]
+        C["JCL Job Orchestration<br/>ACCTPOST.jcl"]
+        D["Batch Summary Output"]
+        A --> B
+        C --> B
+        B --> D
+    end
+
+    subgraph Decision["Modernization Paths"]
+        E["Re-host<br/>Compatible runtime / managed modernization platform"]
+        F["Re-platform / Re-engineer"]
+    end
+
+    subgraph Modern["Modern AWS-Aligned Pattern"]
+        G["Amazon S3<br/>Input dataset"]
+        H["Rust Batch Application<br/>Containerized"]
+        I["Amazon ECS Fargate<br/>Batch execution"]
+        J["Amazon RDS / Aurora<br/>DB2-like persistence"]
+        K["Amazon CloudWatch<br/>Logs / monitoring"]
+        L["Terraform<br/>Infrastructure as Code"]
+        M["GitHub Actions<br/>CI/CD"]
+
+        G --> H
+        H --> J
+        H --> K
+        I --> H
+        L --> G
+        L --> I
+        L --> J
+        L --> K
+        M --> H
+        M --> L
+    end
+
+    Legacy --> Decision
+    Decision --> E
+    Decision --> F
+    F --> Modern

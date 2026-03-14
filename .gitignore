@@ -1,0 +1,20 @@
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Rust
+target/
+**/target/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfplan
+
+# Logs / outputs
+logs/
+output/
+*.log
